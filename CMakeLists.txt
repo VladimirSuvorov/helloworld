@@ -30,10 +30,10 @@ set_target_properties(helloworld_cli helloworld test_version PROPERTIES
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
 )
 
-set_target_properties(test_version PROPERTIES
+#set_target_properties(test_version PROPERTIES
 #    COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-    INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
-)
+#    INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
+#)
 
 target_link_libraries(helloworld_cli
     helloworld
