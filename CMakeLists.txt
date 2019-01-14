@@ -9,13 +9,6 @@ else()
 endif()
 
 
-find_package(GTest REQUIRED)
-include_directories(
-    ../include
-    ${GTEST_INCLUDE_DIRS}
-)
-#find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-
 configure_file(version.h.in version.h)
 
 add_executable(helloworld_cli main.cpp)
@@ -30,19 +23,18 @@ set_target_properties(helloworld_cli helloworld test_version PROPERTIES
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
 )
 
-#set_target_properties(test_version PROPERTIES
-#    COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-#    INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
-#)
-
 target_link_libraries(helloworld_cli
     helloworld
 )
 
-target_link_libraries(test_version
-    ${GTEST_LIBRARIES}
-    helloworld
-)
+include(gtest)
+set(PROJECT_TEST_NAME ${PROJECT_NAME}_test)
+include_directories(${GTEST_INCLUDE_DIRS})
+file(GLOB_RECURSE TEST_SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} test/*cpp)
+message(STATUS "Test case source files: " ${TEST_SRC_FILES})
+add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
+add_dependencies(${PROJECT_TEST_NAME} googletest)
+add_dependencies(${PROJECT_TEST_NAME} ${PROJECT_NAME})
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
