@@ -14,7 +14,7 @@ include_directories(
     ../include
     ${GTEST_INCLUDE_DIRS}
 )
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+#find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 configure_file(version.h.in version.h)
 
@@ -31,8 +31,8 @@ set_target_properties(helloworld_cli helloworld test_version PROPERTIES
 )
 
 set_target_properties(test_version PROPERTIES
-    COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
-    INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+#    COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
+    INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
 )
 
 target_link_libraries(helloworld_cli
