@@ -1,14 +1,12 @@
 language: cpp
 before_script:
 
-- sudo apt-get install libgtest-dev
-- sudo apt-get install cmake # install cmake
+- sudo apt install libgtest-dev cmake -y
 - cd /usr/src/gtest
-- sudo cmake CMakeLists.txt
-- sudo make
+- sudo cmake .
+- sudo cmake --build .
 - sudo cp *.a /usr/lib
-- sudo ln -s /usr/lib/libgtest.a /usr/local/lib/gtest/libgtest.a
-- sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/gtest/libgtest_main.a
+- cd ${TRAVIS_BUILD_DIR}
 
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
