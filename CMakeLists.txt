@@ -9,6 +9,11 @@ else()
 endif()
 
 
+find_package(GTest REQUIRED)
+include_directories(
+    ../include
+    ${GTEST_INCLUDE_DIRS}
+)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 configure_file(version.h.in version.h)
@@ -35,7 +40,7 @@ target_link_libraries(helloworld_cli
 )
 
 target_link_libraries(test_version
-    ${Boost_LIBRARIES}
+    ${GTEST_LIBRARIES}
     helloworld
 )
 
