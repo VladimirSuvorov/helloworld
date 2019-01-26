@@ -32,7 +32,7 @@ set(PROJECT_TEST_NAME test_version)
 include_directories(${GTEST_INCLUDE_DIRS})
 file(GLOB_RECURSE TEST_SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} test/*cpp)
 message(STATUS "Test case source files: " ${TEST_SRC_FILES})
-add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
+#add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
 add_dependencies(${PROJECT_TEST_NAME} googletest)
 add_dependencies(${PROJECT_TEST_NAME} ${PROJECT_NAME})
 
