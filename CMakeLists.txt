@@ -15,7 +15,9 @@ add_executable(helloworld_cli main.cpp)
 
 add_library(helloworld lib.cpp)
 
+include(gtest)
 add_executable(test_version test_version.cpp)
+add_dependencies(test_version googletest)
 
 set_target_properties(helloworld_cli helloworld test_version PROPERTIES
     CXX_STANDARD 14
@@ -27,14 +29,13 @@ target_link_libraries(helloworld_cli
     helloworld
 )
 
-include(gtest)
-set(PROJECT_TEST_NAME test_version)
-include_directories(${GTEST_INCLUDE_DIRS})
-file(GLOB_RECURSE TEST_SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} test/*cpp)
-message(STATUS "Test case source files: " ${TEST_SRC_FILES})
+#set(PROJECT_TEST_NAME test_version)
+#include_directories(${GTEST_INCLUDE_DIRS})
+#file(GLOB_RECURSE TEST_SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} test/*cpp)
+#message(STATUS "Test case source files: " ${TEST_SRC_FILES})
 #add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
-add_dependencies(${PROJECT_TEST_NAME} googletest)
-add_dependencies(${PROJECT_TEST_NAME} ${PROJECT_NAME})
+#add_dependencies(${PROJECT_TEST_NAME} googletest)
+#add_dependencies(${PROJECT_TEST_NAME} ${PROJECT_NAME})
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
