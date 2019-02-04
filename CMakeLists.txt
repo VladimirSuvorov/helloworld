@@ -9,15 +9,15 @@ else()
 endif()
 
 
+find_package(GTest REQUIRED)
+
 configure_file(version.h.in version.h)
 
 add_executable(helloworld_cli main.cpp)
 
 add_library(helloworld lib.cpp)
 
-#include(gtest)
 add_executable(test_version test_version.cpp)
-add_dependencies(test_version googletest)
 
 set_target_properties(helloworld_cli helloworld test_version PROPERTIES
     CXX_STANDARD 14
@@ -25,17 +25,19 @@ set_target_properties(helloworld_cli helloworld test_version PROPERTIES
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
 )
 
+set_target_properties(test_version PROPERTIES
+    COMPILE_DEFINITIONS GTEST_TEST_DYN_LINK
+    INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS}
+)
+
 target_link_libraries(helloworld_cli
     helloworld
 )
 
-#set(PROJECT_TEST_NAME test_version)
-#include_directories(${GTEST_INCLUDE_DIRS})
-#file(GLOB_RECURSE TEST_SOURCE_FILES RELATIVE ${PROJECT_SOURCE_DIR} test/*cpp)
-#message(STATUS "Test case source files: " ${TEST_SRC_FILES})
-#add_executable(${PROJECT_TEST_NAME} ${TEST_SRC_FILES})
-#add_dependencies(${PROJECT_TEST_NAME} googletest)
-#add_dependencies(${PROJECT_TEST_NAME} ${PROJECT_NAME})
+target_link_libraries(test_version
+    ${GTEST_LIBRARIES}
+    helloworld
+)
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
@@ -52,3 +54,4 @@ include(CPack)
 enable_testing()
 
 add_test(test_version test_version)
+
