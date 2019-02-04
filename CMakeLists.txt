@@ -15,7 +15,7 @@ add_executable(helloworld_cli main.cpp)
 
 add_library(helloworld lib.cpp)
 
-include(gtest)
+#include(gtest)
 add_executable(test_version test_version.cpp)
 add_dependencies(test_version googletest)
 
