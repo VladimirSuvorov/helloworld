@@ -11,6 +11,7 @@ addons:
    - g++-7
 
 before_script:
+- sudo apt-get install libspdlog-dev -y
 - sudo apt-get install libboost-all-dev -y
 - sudo apt-get install libgtest-dev -y
 - cd /usr/src/gtest
