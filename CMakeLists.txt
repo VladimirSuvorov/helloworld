@@ -18,7 +18,7 @@ set (GTEST_ROOT /usr/src/gtest)
 set (GTEST_LIBRARY /usr/src/gtest/libgtest.a)
 set (GTEST_MAIN_LIBRARY /usr/src/gtest/libgtest_main.a)
 
-find_package(Boost REQUIRED)
+##find_package(Boost REQUIRED)
 find_package(GTest REQUIRED)
 find_package(Threads REQUIRED)
 include_directories(${GTEST_INCLUDE_DIR})
