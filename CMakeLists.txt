@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 ## Use the variable PROJECT_NAME for changing the target name
-set( PROJECT_NAME "helloworld" )
+set( PROJECT_NAME "helloworld"_cli )
 
 ## Set our project name
 project(${PROJECT_NAME} CXX)
@@ -31,7 +31,7 @@ FILE(GLOB SRCS "*.cpp")
 add_library(static_library lib.cpp)
 
 add_executable(test_version test_version.cpp)
-add_executable(${PROJECT_NAME}_cli main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
 target_link_libraries(
   test_version ${GTEST_LIBRARIES} Threads::Threads static_library)
@@ -42,7 +42,7 @@ set_target_properties(${PROJECT_NAME} test_version static_library PROPERTIES
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra;--std=c++1z"
 )
 
-install(TARGETS ${PROJECT_NAME}_cli RUNTIME DESTINATION bin)
+install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
