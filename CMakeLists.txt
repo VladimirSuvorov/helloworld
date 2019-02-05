@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 ## Use the variable PROJECT_NAME for changing the target name
-set( PROJECT_NAME "helloworld"_cli )
+set(PROJECT_NAME "helloworld_cli")
 
 ## Set our project name
 project(${PROJECT_NAME} CXX)
