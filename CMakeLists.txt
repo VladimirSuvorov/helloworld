@@ -38,6 +38,10 @@ add_executable(${PROJECT_NAME} main.cpp)
 target_link_libraries(test_version
 ${GTEST_LIBRARIES} Threads::Threads static_library)
 
+target_link_libraries(${PROJECT_NAME} 
+static_library
+)
+
 set_target_properties(${PROJECT_NAME} test_version static_library 
 PROPERTIES
     CXX_STANDARD 17
