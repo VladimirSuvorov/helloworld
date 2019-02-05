@@ -28,15 +28,15 @@ configure_file(version.h.in version.h)
 FILE(GLOB SRCS "*.cpp")
 
 ## Define the executable
-add_library(helloworld lib.cpp)
+add_library(static_library lib.cpp)
 
 add_executable(test_version test_version.cpp)
 add_executable(${PROJECT_NAME}_cli main.cpp)
 
 target_link_libraries(
-  test_version ${GTEST_LIBRARIES} Threads::Threads)
+  test_version ${GTEST_LIBRARIES} Threads::Threads static_library)
 
-set_target_properties(${PROJECT_NAME} test_version PROPERTIES
+set_target_properties(${PROJECT_NAME} test_version static_library PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra;--std=c++1z"
