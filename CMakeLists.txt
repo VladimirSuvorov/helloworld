@@ -49,7 +49,7 @@ set_target_properties(${PROJECT_NAME} test_version static_library
 PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
-    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra;--std=c++1z"
+    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra;--std=c++17"
 )
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
