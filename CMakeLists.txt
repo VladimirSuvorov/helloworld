@@ -23,24 +23,24 @@ configure_file(version.h.in version.h)
 #Targets
 add_executable(application main.cpp)
 add_library(static_library lib.cpp)
-add_executable(test test_version.cpp)
+add_executable(test_version test_version.cpp)
 
 
 
 #Compilation setings
-set_target_properties(application static_library test PROPERTIES
+set_target_properties(application static_library test_version PROPERTIES
     CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
 )
-set_target_properties(test PROPERTIES
+set_target_properties(test_version PROPERTIES
     INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIR}
 )
 
 
 #Linking
 target_link_libraries(application static_library)
-target_link_libraries(test
+target_link_libraries(test_version 
     ${GTEST_LIBRARIES}
     static_library
 )
@@ -58,4 +58,4 @@ include(CPack)
 
 #Testing
 enable_testing()
-add_test(test test)
+add_test(test_version test_version)
