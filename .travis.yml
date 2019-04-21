@@ -32,7 +32,6 @@ install:
   - sudo apt-get install -qq g++-7
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 script:
-- CXX=/usr/bin/g++-7 CC=/usr/bin/gcc-7 cmake .
 - cmake .
 - cmake --build .
 - cmake --build . --target test
