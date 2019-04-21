@@ -10,12 +10,23 @@ dist: xenial
 before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
-#- sudo apt-get install gcc-5-base -y
 
-#- wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
-#- sudo dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
-# I also found this helpful 
-#- sudo apt-get -f install
+- sudo apt-get install -y software-properties-common
+- sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+- sudo apt update
+- sudo apt install g++-7 -y
+
+- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7 
+- sudo update-alternatives --config gcc
+- gcc --version
+- g++ --version
+
+# This one if you want the **all** toolchain programs (with the triplet names) to also point to gcc-7. 
+# For example, this is needed if building Debian packages.
+# If you are already are root (e.g. inside a docker image), remove the "sudo" below.
+- ls -la /usr/bin/ | grep -oP "[\S]*(gcc|g\+\+)(-[a-z]+)*[\s]" | xargs sudo bash -c 'for link in ${@:1}; do ln -s -f "/usr/bin/${link}-${0}" "/usr/bin/${link}"; done' 7
+
+- sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-7 --slave /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-7 --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-7
 
 - sudo apt-get install libspdlog-dev -y
 - echo "PWD:"
