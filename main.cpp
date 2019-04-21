@@ -1,7 +1,7 @@
 #include "lib.h"
 
 #include <iostream>
-
+#include <functional> //see https://github.com/gabime/spdlog/issues/940
 #include <spdlog/spdlog.h>
 
 int main (int argc, char *argv[]){
