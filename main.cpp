@@ -7,7 +7,9 @@
 
 #include <iostream>
 #include <spdlog/spdlog.h>
-#define UNUSED(VAR) (void)var
+
+#define UNUSED(VAR) (void)VAR
+
 int main (int argc, char *argv[]){
     UNUSED(argc);UNUSED(argv);
     std::cout << "hello world" << std::endl;
