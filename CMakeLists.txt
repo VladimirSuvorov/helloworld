@@ -29,7 +29,7 @@ add_executable(test_version test_version.cpp)
 
 #Compilation setings
 set_target_properties(application static_library test_version PROPERTIES
-    CXX_STANDARD 17
+    CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
     COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra;-std=c++17;-L/usr/lib/gcc/x86_64-linux-gnu/8;-lstdc++"
 )
