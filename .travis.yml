@@ -5,7 +5,8 @@ dist: precise
 
 matrix:
  include:
-     addons:
+    - os: linux
+      addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
