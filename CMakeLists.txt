@@ -19,7 +19,8 @@ include_directories(
     ${GTEST_INCLUDE_DIRS}
 )
 
-
+#Configure
+configure_file(version.h.in version.h)
 
 #Targets
 add_executable(application main.cpp)
