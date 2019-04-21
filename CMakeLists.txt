@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.8)
 
 #Project config
 set(PROJECT_NAME "helloworld_cli")
@@ -49,10 +49,13 @@ target_link_libraries(test
 #CPack
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION bin)
 set(CPACK_GENERATOR DEB)
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 set(CPACK_PACKAGE_CONTACT vsuvorov1996@gmail.com)
 include(CPack)
 
 
 #Testing
 enable_testing()
-add_test(test_version test)
+add_test(test test)
