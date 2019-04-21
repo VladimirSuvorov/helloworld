@@ -12,7 +12,7 @@ before_script:
 - sudo apt-get update -qq
 
 - sudo apt-get install -y software-properties-common
-- sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+- sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
 - sudo apt update
 - sudo apt install g++-7 -y
 
