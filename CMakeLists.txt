@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.6)
 
 #Project config
 set(PROJECT_NAME "helloworld_cli")
-project(${PROJECT_NAME} VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
-
 if(DEFINED ENV{TRAVIS_BUILD_NUMBER})
   project(${PROJECT_NAME} VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 else()
@@ -42,7 +40,7 @@ set_target_properties(test PROPERTIES
 
 #Linking
 target_link_libraries(application static_library)
-target_link_libraries(test_version
+target_link_libraries(test
     ${GTEST_LIBRARIES}
     static_library
 )
