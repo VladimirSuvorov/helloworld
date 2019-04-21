@@ -10,6 +10,12 @@ addons:
 before_script:
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
+
+- wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
+- sudo dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
+# I also found this helpful 
+- sudo apt-get -f install
+
 - sudo apt-get install libspdlog-dev -y
 - echo "PWD:"
 - echo $PWD
