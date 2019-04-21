@@ -11,7 +11,7 @@ before_script:
 - cd /usr/src/gtest
 - sudo cmake .
 - sudo cmake --build .
-- sudo cp *.a/usr/lib
+- sudo cp *.a /usr/lib
 - cd ${TRAVIS_BUILD_DIR}
 script:
 - cmake .
