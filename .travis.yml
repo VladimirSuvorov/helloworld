@@ -5,15 +5,17 @@ dist: precise
 
 matrix:
  include:
-      addons:
+     addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
             - g++-7
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 before_script:
-- eval "CC=gcc-7 && CXX=g++-7"
+- eval "${MATRIX_EVAL}"
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
 
