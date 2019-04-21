@@ -1,13 +1,19 @@
 sudo: required
 language: cpp
-dist: xenial
+dist: precise 
+ 
+ include:
+ - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
 
-addons:
- apt:
-  sources: ubuntu-toolchain-r-test
-  packages: g++-7
-   
+
 before_script:
+- eval "CC=gcc-7 && CXX=g++-7"
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
 - sudo apt-get update -qq
 
@@ -22,15 +28,6 @@ before_script:
 - sudo cmake --build .
 - sudo cp *.a /usr/lib
 - cd ${TRAVIS_BUILD_DIR}
-before_install:
-  # C++17
-  - sudo add-apt-repository --yes ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update -qq
-# Install dependencies
-install: 
-  # C++17
-  - sudo apt-get install -qq g++-7
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 script:
 - cmake .
 - cmake --build .
