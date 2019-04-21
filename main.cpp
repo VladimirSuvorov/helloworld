@@ -1,5 +1,6 @@
 //FIX LINKING ERRORS
 #include <pthread.h>
+#include <thread>
 #include <functional> //see https://github.com/gabime/spdlog/issues/940
 //END FIX
 
