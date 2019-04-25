@@ -1,13 +1,10 @@
+#include <functional>
+#include <iostream>
+#include <spdlog/spdlog.h>
 #include "lib.h"
 
 
-#include <iostream>
-#include <spdlog/spdlog.h>
-
-#define UNUSED(VAR) (void)VAR
-
-int main (int argc, char *argv[]){
-    UNUSED(argc);UNUSED(argv);
+int main ([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]){
     std::cout << "hello world" << std::endl;
     auto logger = spdlog::stdout_logger_mt("console");
     logger->info("version {} was started", version());
