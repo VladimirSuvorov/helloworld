@@ -26,7 +26,7 @@ include_directories(
 configure_file(version.h.in version.h)
 
 #Targets
-add_executable(application helloworld.cpp)
+add_executable(application main.cpp)
 add_library(static_library lib.cpp)
 add_executable(test_version test_version.cpp)
 
