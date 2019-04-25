@@ -8,7 +8,7 @@ addons:
     packages:
       - g++-8
       - libgtest-dev
-      - libboost-all-dev
+      - libspdlog-dev
       - build-essential
       - cmake
 before_install:
