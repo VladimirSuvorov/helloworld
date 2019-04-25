@@ -1,42 +1,33 @@
-sudo: required
 language: cpp
- 
-
-#matrix:
-# include:
-#    - os: linux
-#      addons:
-#        apt:
-#          sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#            - g++-7
-#      env:
-#        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-
+dist: xenial
+addons:
+  apt:
+    update: true
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-8
+      - libgtest-dev
+      - libboost-all-dev
+      - build-essential
+      - cmake
+before_install:
+- export CC=gcc-8
+- export CXX=g++-8
 before_script:
-- eval "${MATRIX_EVAL}"
-- echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
-- sudo apt-get update -qq
-
-- sudo apt-get install libspdlog-dev -y
-- echo "PWD:"
-- echo $PWD
-- echo "TRAVIS_BUILD_DIR:"
-- echo $TRAVIS_BUILD_DIR
-- sudo apt install libgtest-dev cmake -y
-- cd /usr/src/gtest
+- pushd /usr/src/gtest
 - sudo cmake .
-- sudo cmake --build .
+- sudo cmake --build . -- -j "`nproc`"
 - sudo cp *.a /usr/lib
-- cd ${TRAVIS_BUILD_DIR}
+- popd
 script:
-- cmake .
-- cmake --build .
-- cmake --build . --target test
-- cmake --build . --target package
+- cmake -D BUILD_TYPE_RELEASE=ON .
+- cmake --build . -- -j "`nproc`"
+- cmake --build . --target test -- -j "`nproc`"
+- cmake --build . --target package -- -j "`nproc`"
 deploy:
-  provider: script
-  skip_cleanup: true
-  script: 
-  - curl -T helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uvladimirsuvorov:$BINTRAY_API_KEY "https://api.bintray.com/content/vladimirsuvorov/otus-cpp/helloworld/$TRAVIS_BUILD_NUMBER/helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
+    provider: script
+    skip_cleanup: true
+    #debug: on
+    script: 
+    - curl -T helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -uvladimirsuvorov:$BINTRAY_API_KEY "https://api.bintray.com/content/vladimirsuvorov/otus-cpp/helloworld/$TRAVIS_BUILD_NUMBER/helloworld-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publish=1"
