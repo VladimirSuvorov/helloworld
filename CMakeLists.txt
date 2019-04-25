@@ -9,9 +9,14 @@ else()
 endif()
 
 
-
 #Packages
+set (GTEST_ROOT /usr/src/gtest)
+set (GTEST_LIBRARY /usr/src/gtest/libgtest.a)
+set (GTEST_MAIN_LIBRARY /usr/src/gtest/libgtest_main.a)
+
 find_package(GTest REQUIRED)
+find_package(Threads REQUIRED)
+
 include_directories(
     ../include
     ${GTEST_INCLUDE_DIRS}
@@ -21,7 +26,7 @@ include_directories(
 configure_file(version.h.in version.h)
 
 #Targets
-add_executable(application main.cpp)
+add_executable(application helloworld.cpp)
 add_library(static_library lib.cpp)
 add_executable(test_version test_version.cpp)
 
@@ -29,9 +34,9 @@ add_executable(test_version test_version.cpp)
 
 #Compilation setings
 set_target_properties(application static_library test_version PROPERTIES
-    CXX_STANDARD 11
+    CXX_STANDARD 17
     CXX_STANDARD_REQUIRED ON
-    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
+    COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra;--std=c++17;"
 )
 set_target_properties(test_version PROPERTIES
     INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIR}
@@ -39,19 +44,21 @@ set_target_properties(test_version PROPERTIES
 
 
 #Linking
-target_link_libraries(application static_library)
-target_link_libraries(test_version 
+target_link_libraries(application)
+target_link_libraries(test_version
     ${GTEST_LIBRARIES}
-    static_library
+    Threads::Threads
 )
+
+#Install
+install(TARGETS application RUNTIME DESTINATION bin)
 
 
 #CPack
-install(TARGETS application RUNTIME DESTINATION bin)
-set(CPACK_GENERATOR DEB)
-set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+set (CPACK_GENERATOR DEB)
+set (CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set (CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set (CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 set(CPACK_PACKAGE_CONTACT vsuvorov1996@gmail.com)
 include(CPack)
 
