@@ -44,7 +44,9 @@ set_target_properties(test_version PROPERTIES
 
 
 #Linking
-target_link_libraries(application static_library)
+target_link_libraries(application 
+    static_library 
+    Threads::Threads)
 target_link_libraries(test_version
     static_library
     ${GTEST_LIBRARIES}
